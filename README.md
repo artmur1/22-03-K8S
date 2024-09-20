@@ -32,7 +32,46 @@
 
 ### Решение 1.
 
-![]()
+Конфиг Deployment. Контейнеры nginx и multitool занимают одинаковые порты 80, 8080, 443. Понимаю, что для одного из контейнеров нужно прописать в Deployment.yaml переадресацию порта 8080 к примеру на порт 9080. После долгого поиска информации, нашел как переадресовать порт в Deployment.yaml у wbitt/network-multitool:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-01.png)
+
+Созданный под:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-02.png)
+
+Оба контейнера работают:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-03.png)
+
+Результат после увеличения количества реплик до 2-х:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-04.png)
+
+Написал сервис:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-05.png)
+
+Запустил сервис:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-06.png)
+
+Под wbitt/network-multitool:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-07.png)
+
+Под запущен:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-08.png)
+
+Ответ с 80 порта от nginx:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-09.png)
+
+Ответ с 8080 порта от wbitt/network-multitool. Видно, что при повторых запросах ответ приходит с разных реплик контейнера. Это пример работы балансировщика нагрузки.
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-10.png)
+
 
 ------
 
@@ -45,7 +84,33 @@
 
 ### Решение 2.
 
+После чтения документации по Init-контейнерам, нашел как реализовать задачу:
 
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-01.png)
+
+Под запущен, но Status Init:0/1:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-02.png)
+
+В описании пода видно, что статус у инит контейнера False:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-03.png)
+
+Написал сервис:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-04.png)
+
+Запустил сервис, под поднялся:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-05.png)
+
+статус у инит контейнера True:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-06.png)
+
+В Event видно, что nginx стартовал успешно:
+
+![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-07.png)
 
 ------
 
