@@ -32,7 +32,7 @@
 
 ### Решение 1.
 
-Конфиг Deployment. Контейнеры nginx и multitool занимают одинаковые порты 80, 8080, 443. Понимаю, что для одного из контейнеров нужно прописать в Deployment.yaml переадресацию порта 8080 к примеру на порт 9080. После долгого поиска информации, нашел как переадресовать порт в Deployment.yaml у wbitt/network-multitool:
+Конфиг Deployment - https://github.com/artmur1/22-03-K8S/blob/main/files/deployment.yaml. Контейнеры nginx и multitool занимают одинаковые порты 80, 8080, 443. Понимаю, что для одного из контейнеров нужно прописать в Deployment.yaml переадресацию порта 8080 к примеру на порт 9080. После долгого поиска информации, нашел как переадресовать порт в Deployment.yaml у wbitt/network-multitool:
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-01.png)
 
@@ -48,7 +48,7 @@
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-04.png)
 
-Написал сервис:
+Написал сервис - https://github.com/artmur1/22-03-K8S/blob/main/files/svc-nginx-multitool.yaml:
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-05.png)
 
@@ -56,7 +56,7 @@
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-06.png)
 
-Под wbitt/network-multitool:
+Под wbitt/network-multitool - https://github.com/artmur1/22-03-K8S/blob/main/files/pod-multitool.yaml:
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-01-07.png)
 
@@ -84,7 +84,7 @@
 
 ### Решение 2.
 
-После чтения документации по Init-контейнерам, нашел как реализовать задачу:
+После чтения документации по Init-контейнерам, нашел как реализовать задачу - https://github.com/artmur1/22-03-K8S/blob/main/files/pod-nginx.yaml:
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-01.png)
 
@@ -96,7 +96,7 @@
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-03.png)
 
-Написал сервис:
+Написал сервис - https://github.com/artmur1/22-03-K8S/blob/main/files/myservice.yaml:
 
 ![](https://github.com/artmur1/22-03-K8S/blob/main/img/22-03-02-04.png)
 
